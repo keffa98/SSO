@@ -62,5 +62,10 @@ namespace SSO1
             db.SaveChanges();
         }
 
+        public string CreateToken()
+        {
+            return Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); ;
+        }
+
     }
 }

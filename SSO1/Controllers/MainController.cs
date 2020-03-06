@@ -9,9 +9,9 @@ namespace SSO1.Controllers
     [Authorize]
     public class MainController : Controller
     {
-         public ActionResult Login()
+        public ActionResult Login()
         {
-          return View();
+            return View("Login");
         }
 
         //public string Index()
