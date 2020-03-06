@@ -175,8 +175,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\UserID.cs" />
-	<Compile Include="Models\UserDbContext.cs" />
-	<Compile Include="Models\DBUsersLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
