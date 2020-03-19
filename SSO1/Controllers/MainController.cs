@@ -6,13 +6,20 @@ using System.Web.Mvc;
 
 namespace SSO1.Controllers
 {
-    [Authorize]
     public class MainController : Controller
     {
-        public ActionResult Login()
+        public ActionResult getUser()
         {
             return View("Login");
         }
+
+        public string postUser()
+        {
+            return "postUser";
+           
+        }
+
+
 
         //public string Index()
         //{

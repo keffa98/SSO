@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "ListUsers";
+}
+
+<!--Vue par laquelle les données sont retournées-->
+
+    <body>
+        <table>
+            <tr>
+                <th>Name</th>
+            </tr>
+            @foreach (SSO1.Models.User user in ViewData["Users"] as List<SSO1.Models.User>)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                </tr>
+            }
+        </table>
+    </body>

@@ -6,7 +6,7 @@ using System.Web.Routing;
 
 namespace SSO1
 {
-    public class RouteConfig
+    public static class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
@@ -15,8 +15,29 @@ namespace SSO1
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "LoginPage", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "GetUsers",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "GetListUsers", id = UrlParameter.Optional }
+
+                );
+
+
+            routes.MapRoute(
+                name: "test",
+                url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "PostData",
+                url: "{ controller}/{ action}/{ id}",
+                //url: "Ajouter/{valeur1}/{valeur2}",
+                defaults: new { controller = "Main", action = "postUser" });
         }
+
+
     }
 }

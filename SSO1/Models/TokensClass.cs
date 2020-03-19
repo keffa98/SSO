@@ -13,9 +13,7 @@ namespace SSO1
         public bool Accees { get; set; }
 
         public TokensClass()
-        {
-
-        }
+        { }
 
     }
 }
