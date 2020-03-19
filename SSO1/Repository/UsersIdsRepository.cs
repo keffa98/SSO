@@ -92,9 +92,9 @@ namespace SSO1.Repository
 
         public string CreateToken()
         {
-            //  return Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); 
+              return Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); 
 
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
 
         }
 
@@ -127,15 +127,41 @@ namespace SSO1.Repository
         //}
 
 
-        //public string CreateToken()
-        //{
-        //    return Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); ;
-        //}
+        public string CreateToken()
+        {
+           return valueToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); ;
+        }
 
         public void Dispose()
         {
             bdd.Dispose();
         }
+
+    public static void StoreInCookie( string cookieName, string keyName, DateTime? expirationDate,  bool httpOnly = false)
+    {
+
+            foreach (string domain in DbContext.SitesAccess)
+            {
+                HttpCookie cookie = HttpContext.Current.Response.Cookies[cookieName]
+                    ?? HttpContext.Current.Request.Cookies[cookieName];
+                if (cookie == null) cookie = new HttpCookie(cookieName);
+                if (!String.IsNullOrEmpty(keyName)) cookie.Values.Set(keyName, TokensClass.valueToken);
+                else cookie.Value = TokensClass.valueToken;
+                if (expirationDate.HasValue) cookie.Expires = expirationDate.Value;
+                if (!String.IsNullOrEmpty(cookieDomain)) cookie.Domain = domain;
+                if (httpOnly) cookie.HttpOnly = true;
+                HttpContext.Current.Response.Cookies.Set(cookie);
+            }
+    }
+
+    public static bool CookieExist(string cookieName, string keyName)
+    {
+        HttpCookieCollection cookies = HttpContext.Current.Request.Cookies;
+        return (String.IsNullOrEmpty(keyName))
+            ? cookies[cookieName] != null
+            : cookies[cookieName] != null && cookies[cookieName][keyName] != null;
+    }
+
 
 
     }
