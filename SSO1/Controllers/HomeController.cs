@@ -102,6 +102,7 @@ namespace SSO1.Controllers
             return View();
         }
 
+
         [Authorize]
         public ActionResult WebApp2()
         {

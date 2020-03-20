@@ -134,8 +134,14 @@ namespace SSO1.Repository
 
         public string CheckToken()
         {
+<<<<<<< HEAD
            // return Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
             throw new NotImplementedException();
+=======
+              return Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); 
+
+           // throw new NotImplementedException();
+>>>>>>> a396992d6968fa9f91fcd45021104e18a0efed21
 
         }
 
@@ -168,15 +174,64 @@ namespace SSO1.Repository
         //}
 
 
-        //public string CreateToken()
-        //{
-        //    return Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); ;
-        //}
+        public string CreateToken()
+        {
+           return valueToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); ;
+        }
 
         public void Dispose()
         {
             bdd.Dispose();
         }
+
+        public static void StoreInCookie( string cookieName, string keyName, DateTime? expirationDate,  bool httpOnly = false)
+        {
+
+            foreach (string domain in DbContext.SitesAccess)
+            {
+                HttpCookie cookie = HttpContext.Current.Response.Cookies[cookieName]
+                    ?? HttpContext.Current.Request.Cookies[cookieName];
+                if (cookie == null) cookie = new HttpCookie(cookieName);
+                if (!String.IsNullOrEmpty(keyName)) cookie.Values.Set(keyName, TokensClass.valueToken);
+                else cookie.Value = TokensClass.valueToken;
+                if (expirationDate.HasValue) cookie.Expires = expirationDate.Value;
+                if (!String.IsNullOrEmpty(cookieDomain)) cookie.Domain = domain;
+                if (httpOnly) cookie.HttpOnly = true;
+                HttpContext.Current.Response.Cookies.Set(cookie);
+            }
+        }
+
+        public static bool CookieExist(string cookieName, string keyName)
+        {
+            HttpCookieCollection cookies = HttpContext.Current.Request.Cookies;
+            return (String.IsNullOrEmpty(keyName))
+                ? cookies[cookieName] != null
+                : cookies[cookieName] != null && cookies[cookieName][keyName] != null;
+        }
+
+
+        public static void RemoveCookie(string cookieName, string keyName, string domain = null)
+        {
+            if (String.IsNullOrEmpty(keyName))
+            {
+                if (HttpContext.Current.Request.Cookies[cookieName] != null)
+                {
+                    HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
+                    cookie.Expires = DateTime.UtcNow.AddYears(-1);
+                    if (!String.IsNullOrEmpty(domain)) cookie.Domain = domain;
+                    HttpContext.Current.Response.Cookies.Add(cookie);
+                    HttpContext.Current.Request.Cookies.Remove(cookieName);
+                }
+            }
+            else
+            {
+                HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
+                cookie.Values.Remove(keyName);
+                if (!String.IsNullOrEmpty(domain)) cookie.Domain = domain;
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+        }
+
 
 
     }

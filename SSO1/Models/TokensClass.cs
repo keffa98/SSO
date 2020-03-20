@@ -7,7 +7,7 @@ namespace SSO1
 {
     public class TokensClass
     {
-        public string id { get; set; }
+        public string valueToken { get; set; }
         public int TimeStart { get; set; }
         public int TimeNow { get; set; }
         public bool Accees { get; set; }
