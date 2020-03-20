@@ -24,6 +24,11 @@ namespace SSO1.Models
         void DeleteUserByID(int id);
 
         bool Auth(string nom, string Password);
+        //Client GetClient();
+
+        Client FindClient(string Name);
+ 
+
 
         //bool CheckIfUserExist(string nom )
     }

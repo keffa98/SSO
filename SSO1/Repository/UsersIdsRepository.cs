@@ -124,115 +124,115 @@ namespace SSO1.Repository
                     userExist = false;
                 }
     //        }
-
-
-
             return userExist;
 
            // return bdd.UsersID.FirstOrDefault(user => user.Nom == nom && user.Password == PasswordCrypted);
         }
 
-        public string CheckToken()
-        {
-<<<<<<< HEAD
-           // return Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
-            throw new NotImplementedException();
-=======
-              return Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); 
+        //public string CheckToken()
+        //{
+        //    throw new NotImplementedException();
+        //     // return Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); 
 
-           // throw new NotImplementedException();
->>>>>>> a396992d6968fa9f91fcd45021104e18a0efed21
+
+        //}
+
+        //public Client GetClient()
+        //{
+
+        //    Client client = new Client { ClientId = "Google", ClientName = "google", ClientUri = "http://www.google.com" };
+        //    return client;
+        //}
+
+       public Client FindClient(string name)
+        {
+
+            //    Client Context db = DatabaseContext.GetData();
+            //    List<Client> clientsList = (from p in db.UsersID select p).ToList();
+            //    foreach (Client site in clientsList)
+            Client client = null;
+
+
+            List<Client> clientsList = new List<Client>{
+             new Client { ClientId = "Google", ClientName = "google", ClientUri = "http://www.google.com" },
+             new Client { ClientId = "Facebook", ClientName = "facebook", ClientUri = "http://www.facebook.com" }, };
+
+            foreach(Client site in clientsList)
+            {
+                if (site.ClientName == name)
+                {
+                    return site;
+                }
+                client = site;
+            }
+
+            return client;
+
+            // return bdd.Client.FirstOrDefault(client => Client.ClientName == name);
 
         }
 
 
 
-        //public bool CheckuSerExist(string User, string mdp)
+
+        //public string CreateToken()
         //{
-        //    DatabaseContext db = DatabaseContext.GetData();
-        //    List<UsersID> liste1 = (from p in db.Users select p).ToList();
-        //    bool i = true;
-        //    foreach (UsersID mamzil in liste1)
-        //    {
-        //        if (mamzil.Nom == User)
-        //        {
-        //            if (mamzil.Password == mdp)
-        //            {
-        //                i = true;
-        //            }
-        //            else
-        //            {
-        //                i = false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            i = false;
-        //        }
-        //    }
-        //    return i;
+        //   return valueToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); ;
         //}
 
 
-        public string CreateToken()
-        {
-           return valueToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); ;
-        }
+        //public static void StoreInCookie( string cookieName, string keyName, DateTime? expirationDate,  bool httpOnly = false)
+        //{
+
+        //    foreach (string domain in DbContext.SitesAccess)
+        //    {
+        //        HttpCookie cookie = HttpContext.Current.Response.Cookies[cookieName]
+        //            ?? HttpContext.Current.Request.Cookies[cookieName];
+        //        if (cookie == null) cookie = new HttpCookie(cookieName);
+        //        if (!String.IsNullOrEmpty(keyName)) cookie.Values.Set(keyName, TokensClass.valueToken);
+        //        else cookie.Value = TokensClass.valueToken;
+        //        if (expirationDate.HasValue) cookie.Expires = expirationDate.Value;
+        //        if (!String.IsNullOrEmpty(cookieDomain)) cookie.Domain = domain;
+        //        if (httpOnly) cookie.HttpOnly = true;
+        //        HttpContext.Current.Response.Cookies.Set(cookie);
+        //    }
+        //}
+
+        //public static bool CookieExist(string cookieName, string keyName)
+        //{
+        //    HttpCookieCollection cookies = HttpContext.Current.Request.Cookies;
+        //    return (String.IsNullOrEmpty(keyName))
+        //        ? cookies[cookieName] != null
+        //        : cookies[cookieName] != null && cookies[cookieName][keyName] != null;
+        //}
+
+
+        //public static void RemoveCookie(string cookieName, string keyName, string domain = null)
+        //{
+        //    if (String.IsNullOrEmpty(keyName))
+        //    {
+        //        if (HttpContext.Current.Request.Cookies[cookieName] != null)
+        //        {
+        //            HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
+        //            cookie.Expires = DateTime.UtcNow.AddYears(-1);
+        //            if (!String.IsNullOrEmpty(domain)) cookie.Domain = domain;
+        //            HttpContext.Current.Response.Cookies.Add(cookie);
+        //            HttpContext.Current.Request.Cookies.Remove(cookieName);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
+        //        cookie.Values.Remove(keyName);
+        //        if (!String.IsNullOrEmpty(domain)) cookie.Domain = domain;
+        //        HttpContext.Current.Response.Cookies.Add(cookie);
+        //    }
+        //}
 
         public void Dispose()
         {
             bdd.Dispose();
         }
-
-        public static void StoreInCookie( string cookieName, string keyName, DateTime? expirationDate,  bool httpOnly = false)
-        {
-
-            foreach (string domain in DbContext.SitesAccess)
-            {
-                HttpCookie cookie = HttpContext.Current.Response.Cookies[cookieName]
-                    ?? HttpContext.Current.Request.Cookies[cookieName];
-                if (cookie == null) cookie = new HttpCookie(cookieName);
-                if (!String.IsNullOrEmpty(keyName)) cookie.Values.Set(keyName, TokensClass.valueToken);
-                else cookie.Value = TokensClass.valueToken;
-                if (expirationDate.HasValue) cookie.Expires = expirationDate.Value;
-                if (!String.IsNullOrEmpty(cookieDomain)) cookie.Domain = domain;
-                if (httpOnly) cookie.HttpOnly = true;
-                HttpContext.Current.Response.Cookies.Set(cookie);
-            }
-        }
-
-        public static bool CookieExist(string cookieName, string keyName)
-        {
-            HttpCookieCollection cookies = HttpContext.Current.Request.Cookies;
-            return (String.IsNullOrEmpty(keyName))
-                ? cookies[cookieName] != null
-                : cookies[cookieName] != null && cookies[cookieName][keyName] != null;
-        }
-
-
-        public static void RemoveCookie(string cookieName, string keyName, string domain = null)
-        {
-            if (String.IsNullOrEmpty(keyName))
-            {
-                if (HttpContext.Current.Request.Cookies[cookieName] != null)
-                {
-                    HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
-                    cookie.Expires = DateTime.UtcNow.AddYears(-1);
-                    if (!String.IsNullOrEmpty(domain)) cookie.Domain = domain;
-                    HttpContext.Current.Response.Cookies.Add(cookie);
-                    HttpContext.Current.Request.Cookies.Remove(cookieName);
-                }
-            }
-            else
-            {
-                HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
-                cookie.Values.Remove(keyName);
-                if (!String.IsNullOrEmpty(domain)) cookie.Domain = domain;
-                HttpContext.Current.Response.Cookies.Add(cookie);
-            }
-        }
-
-
 
     }
 }

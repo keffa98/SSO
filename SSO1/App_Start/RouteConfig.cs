@@ -32,9 +32,17 @@ namespace SSO1
 
             routes.MapRoute(
               name: "WebApp2",
-              url: "{controller}/{action}/{id}",
-              defaults: new { controller = "Home", action = "WebApp2", id = UrlParameter.Optional }
+              url: "{controller}/{action}",
+              defaults: new { controller = "Home", action = "Google"}
             );
+
+            routes.MapRoute(
+             name: "WebApp3",
+             url: "{controller}/{action}",
+             defaults: new { controller = "Home", action = "Fb" }
+            );
+
+
 
 
             //routes.MapRoute(

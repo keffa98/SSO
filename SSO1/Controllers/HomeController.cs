@@ -103,10 +103,30 @@ namespace SSO1.Controllers
         }
 
 
+
+
         [Authorize]
-        public ActionResult WebApp2()
+        public ActionResult Google()
         {
-            return View();
+            using (UserInterface userInterface = new UsersRepository())
+            {
+                Client client = userInterface.FindClient("google");
+                //Client client = userInterface.FindClient("Client.ClientName");
+                Console.WriteLine(client);
+                return Redirect(client.ClientUri);
+            }
+        }
+
+        [Authorize]
+        public ActionResult Fb()
+        {
+            using (UserInterface userInterface = new UsersRepository())
+            {
+                Client client = userInterface.FindClient("facebook");
+                //Client client = userInterface.FindClient("Client.ClientName");
+                Console.WriteLine(client);
+                return Redirect(client.ClientUri);
+            }
         }
         public ActionResult Deconnexion() //Deconnection
             {
