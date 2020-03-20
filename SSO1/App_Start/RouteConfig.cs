@@ -13,29 +13,35 @@ namespace SSO1
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
+            name: "default",
+            url: "{controller}/{action}/{id}",
+            defaults: new { controller = "Home", action = "ListUsers", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "sso",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "LoginPage", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
-                name: "GetUsers",
+                name: "WebApp1",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "GetListUsers", id = UrlParameter.Optional }
-
-                );
-
-
-            routes.MapRoute(
-                name: "test",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "WebApp1", id = UrlParameter.Optional }
             );
+
             routes.MapRoute(
-                name: "PostData",
-                url: "{ controller}/{ action}/{ id}",
-                //url: "Ajouter/{valeur1}/{valeur2}",
-                defaults: new { controller = "Main", action = "postUser" });
+              name: "WebApp2",
+              url: "{controller}/{action}/{id}",
+              defaults: new { controller = "Home", action = "WebApp2", id = UrlParameter.Optional }
+            );
+
+
+            //routes.MapRoute(
+            //    name: "PostData",
+            //    url: "{ controller}/{ action}/{ id}",
+            //    //url: "Ajouter/{valeur1}/{valeur2}",
+            //    defaults: new { controller = "Main", action = "postUser" });
         }
 
 

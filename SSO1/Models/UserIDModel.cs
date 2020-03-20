@@ -17,7 +17,7 @@ namespace SSO1
         public string Nom { get; set; }
         [Required]
         public string Password { get; set; }
-        public string Token { get; set; }
+        //public string Token { get; set; }
 
         //public void PrintUser()
         //{

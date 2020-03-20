@@ -1,4 +1,6 @@
 ﻿
+@model SSO1.Models.UserIDViewModels
+
 @{
     Layout = null;
 }
@@ -9,7 +11,7 @@
     <meta charset="utf-8" />
     <style type="text/css">
         body {
-            background: #67BE4B;
+            background-color: lightslategrey;
         }
 
         #container {
@@ -44,7 +46,7 @@
 
         /* Set a style for all buttons */
         input[type=submit] {
-            background-color: #53af57;
+            background-color: darkblue;
             color: white;
             padding: 14px 20px;
             margin: 8px 0;
@@ -55,8 +57,8 @@
 
             input[type=submit]:hover {
                 background-color: white;
-                color: #53af57;
-                border: 1px solid #53af57;
+                color: #1990da;
+                border: 1px solid #1990da;
             }
     </style>
     <title>Index SSO</title>
@@ -65,7 +67,7 @@
     <div id="container">
         <!-- zone de connexion -->
 
-        <form method="post">
+        @*<form method="post">
             <h1>Connexion</h1>
 
             <label><b>Nom d'utilisateur</b></label>
@@ -75,7 +77,42 @@
             <input type="password" placeholder="Entrer le mot de passe" name="password" required>
 
             <input type="submit" id='submit' value='LOGIN'>
-        </form>
+        </form>*@
+
+        @if (Model.Authentifie)
+        {
+            <h3>
+                Vous êtes déjà authentifié avec le login :
+                @Model.userViewModel.Nom           </h3>
+            @Html.ActionLink("Voulez-vous vous déconnecter ?", "Deconnexion")
+        }
+        else
+        {
+            <p>
+                Veuillez vous authentifier :
+            </p>
+            using (Html.BeginForm())
+            {
+                <div>
+                    @Html.LabelFor(m => m.userViewModel.Nom)
+                    @Html.TextBoxFor(m => m.userViewModel.Nom)
+                    @Html.ValidationMessageFor(m => m.userViewModel.Nom)
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.userViewModel.Password)
+                    @Html.PasswordFor(m => m.userViewModel.Password)
+                    @Html.ValidationMessageFor(m => m.userViewModel.Password)
+                </div>
+                <input type="submit" value="Se connecter" />
+                <br />
+                @Html.ActionLink("Créer un compte", "CreerCompte")
+            }
+        }
+
+
+
     </div>
+
+
 </body>
 </html>

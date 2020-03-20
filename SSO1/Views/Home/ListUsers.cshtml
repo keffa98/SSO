@@ -1,20 +1,30 @@
 ﻿
+@model List<SSO1.UsersID>
 @{
     ViewBag.Title = "ListUsers";
 }
 
-<!--Vue par laquelle les données sont retournées-->
+<!--Vue par laquelle les données utilisateurs sont retournées-->
 
-    <body>
-        <table>
-            <tr>
-                <th>Name</th>
-            </tr>
-            @foreach (SSO1.Models.User user in ViewData["Users"] as List<SSO1.Models.User>)
-            {
-                <tr>
-                    <td>@user.Name</td>
-                </tr>
-            }
-        </table>
-    </body>
+               <body>
+
+                   @*<ul>
+                       <li>@ViewData["users"]</li>
+                       <li>@(((DateTime)ViewData["date"]).ToString("dd/MM/yyyy"))</li>
+                       <li>@(((SSO1.UsersID)ViewData["UsersID"]).Nom)</li>
+                       <li>@(((SSO1.UsersID)ViewData["UsersID"]).Password)</li>
+                   </ul>*@
+
+                   <table>
+                       <tr>
+                           <th>Nom</th>
+                       </tr>
+                       @foreach (var user in Model)
+                       {
+                           <tr>
+                               <td>@user.Nom</td>
+                           </tr>
+                       }
+                   </table>
+
+               </body>

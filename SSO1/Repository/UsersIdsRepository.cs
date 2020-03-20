@@ -49,10 +49,17 @@ namespace SSO1.Repository
         public List<UsersID> GetAllUsersIDs()
         {
             //UsersIDList = bdd.UsersID.ToList();
-            List<UsersID> UsersIDList = (from p in bdd.UsersID select p).ToList();
-            foreach (UsersID userid in UsersIDList) { Console.WriteLine(userid.Nom + ") " + userid.Password + " - " + userid.Token); }
+           // List<UsersID> UsersIDList = (from p in bdd.UsersID select p).ToList();
+            //foreach (UsersID userid in UsersIDList) { Console.WriteLine(userid.Nom + ") " + userid.Password + " - " + userid.Token); }
 
-            return UsersIDList;
+
+            // return UsersIDList;
+
+            return new List<UsersID>
+            {
+                new UsersID { Nom = "Aros" , Password ="test" },
+                new UsersID { Nom = "Junior" , Password ="test" }
+               };
 
         }
 
@@ -60,6 +67,12 @@ namespace SSO1.Repository
         {
             UsersID userid = bdd.UsersID.FirstOrDefault(user => user.Id == id);
             return userid;
+        }
+
+        public UsersID FindUserByName(string Name)
+        {
+//            UsersID userName = bdd.UsersID.FirstOrDefault(user => user.Nom == Name);
+            return new UsersID { Nom = "Aros"};
         }
 
         public void DeleteUserByID(int id)
@@ -84,16 +97,44 @@ namespace SSO1.Repository
         }
 
 
-        public UsersID Auth(string nom, string Password)
+        public bool Auth(string nom, string Password)
         {
-            string PasswordCrypted = EncodePassword(Password);
-            return bdd.UsersID.FirstOrDefault(user => user.Nom == nom && user.Password == PasswordCrypted);
+            //string PasswordCrypted = EncodePassword(Password);
+            //List<UsersID> userlist =  new List<UsersID>{
+            //    new UsersID { Nom = "Aros" , Password ="test" },
+            //    new UsersID { Nom = "Junior" , Password ="test" }
+            //   };
+
+            bool userExist;
+
+            UsersID user = new UsersID { Nom = "Aros", Password = "test" };
+//            foreach (UsersID user in userlist)
+  //          {
+                if (user.Nom == nom)
+                {
+                    if (user.Password == Password)
+                    {
+                        userExist = true;
+                    } else
+                    {
+                        userExist = false;
+                    }
+                } else
+                {
+                    userExist = false;
+                }
+    //        }
+
+
+
+            return userExist;
+
+           // return bdd.UsersID.FirstOrDefault(user => user.Nom == nom && user.Password == PasswordCrypted);
         }
 
-        public string CreateToken()
+        public string CheckToken()
         {
-            //  return Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray()); 
-
+           // return Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
             throw new NotImplementedException();
 
         }
